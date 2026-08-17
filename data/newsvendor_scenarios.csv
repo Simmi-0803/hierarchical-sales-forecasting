@@ -1,0 +1,5 @@
+scenario,fractile,z,order,vs_forecast
+"Fresh grocery (Cu=1, Co=3)",0.25,-0.674,47882410.0,-1432661.0
+"Balanced (Cu=1, Co=1)",0.5,0.0,49315071.0,0.0
+"General merch (Cu=3, Co=1)",0.75,0.674,50747732.0,1432661.0
+"Critical stock (Cu=9, Co=1)",0.9,1.282,52037171.0,2722100.0

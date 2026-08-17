@@ -1,0 +1,8 @@
+.ipynb_checkpoints/
+__pycache__/
+*.pyc
+~$*.pbix
+.Rhistory
+data/train.csv
+data/features.csv
+data/stores.csv
