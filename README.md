@@ -28,7 +28,7 @@ The baseline is **coherent by construction**: it copies historical actuals, whic
 
 **Base models.** SARIMA(1,1,1)(1,1,1,52) fitted independently to all 49 series. Total MAPE 1.87%.
 
-**The incoherence.** The direct total forecast and the sum of the 45 store forecasts disagreed by up to **£873,783** in a single week. Gaps were predominantly positive — a systematic bias, not noise.
+**The incoherence.** The direct total forecast and the sum of the 45 store forecasts disagreed by up to **$873,783** in a single week. Gaps were predominantly positive — a systematic bias, not noise.
 
 **Reconciliation.** A coherent forecast is one expressible as `S × (45 store values)`, where `S` is the 49×45 summing matrix. Reconciliation projects the incoherent forecast onto that subspace.
 
@@ -40,9 +40,9 @@ The baseline is **coherent by construction**: it copies historical actuals, whic
 
 | Method | Coherence gap | Total MAPE | Store MAPE |
 |---|---|---|---|
-| Independent SARIMA | £873,783 | 1.87% | 3.79% |
-| OLS reconciled | £0 | 1.86% | 4.19% |
-| **MinT reconciled** | **£0** | **1.63%** | **3.77%** |
+| Independent SARIMA | $873,783 | 1.87% | 3.79% |
+| OLS reconciled | $0 | 1.86% | 4.19% |
+| **MinT reconciled** | **$0** | **1.63%** | **3.77%** |
 
 **OLS buys coherence at the cost of store accuracy.** It assumes all 49 series are equally reliable — an assumption already contradicted by the baseline, where store MAPE was 2.6× total MAPE. Noisy store errors are permitted to pull on well-estimated aggregates.
 
@@ -70,18 +70,18 @@ The newsvendor solution orders at the **critical fractile** `Cu/(Cu+Co)`:
 
 | Scenario | Fractile | Order vs forecast |
 |---|---|---|
-| Fresh grocery (Cu=1, Co=3) | 0.25 | −£1.43M |
-| Balanced (Cu=1, Co=1) | 0.50 | £0 |
-| General merchandise (Cu=3, Co=1) | 0.75 | +£1.43M |
-| Critical stock (Cu=9, Co=1) | 0.90 | +£2.72M |
+| Fresh grocery (Cu=1, Co=3) | 0.25 | −$1.43M |
+| Balanced (Cu=1, Co=1) | 0.50 | $0 |
+| General merchandise (Cu=3, Co=1) | 0.75 | +$1.43M |
+| Critical stock (Cu=9, Co=1) | 0.90 | +$2.72M |
 
 Same forecast, four different correct decisions.
 
-**Reconciliation changes the decision.** Rebuilding order quantities on MinT forecasts shifts the weekly order by **−£279K on average**, negative in 12 of 13 weeks — the unreconciled forecasts were systematically high, so reconciliation reduces over-ordering.
+**Reconciliation changes the decision.** Rebuilding order quantities on MinT forecasts shifts the weekly order by **−$279K on average**, negative in 12 of 13 weeks — the unreconciled forecasts were systematically high, so reconciliation reduces over-ordering.
 
 **Store-level buffers vary substantially.** Store 36 requires an 8.33% safety buffer against store 4's 2.18%: smaller stores carry proportionally more forecast noise. A flat percentage rule would under-protect small stores and over-protect large ones simultaneously.
 
-**Normality does not hold.** Residuals show skew 0.311, kurtosis 1.983, Jarque-Bera p = 0.011. The empirical 75th percentile (£380,811) is 3.6× smaller than the normal-implied value (£1,364,800) — a £1.05M weekly difference in order quantity. Fat tails inflate the standard deviation, and the normal assumption spreads that inflation symmetrically into a right tail the data does not exhibit.
+**Normality does not hold.** Residuals show skew 0.311, kurtosis 1.983, Jarque-Bera p = 0.011. The empirical 75th percentile ($380,811) is 3.6× smaller than the normal-implied value ($1,364,800) — a $1.05M weekly difference in order quantity. Fat tails inflate the standard deviation, and the normal assumption spreads that inflation symmetrically into a right tail the data does not exhibit.
 
 ## Limitations
 
@@ -91,11 +91,11 @@ Same forecast, four different correct decisions.
 
 **Two and a half seasonal cycles.** 130 training weeks against a 52-week period — thin for estimating annual seasonality, and the reason `enforce_stationarity` and `enforce_invertibility` were disabled.
 
-**Residual burn-in was initially wrong.** W was first estimated from index 52 (the seasonal period). Diagnostics showed the Kalman filter had not converged: residual standard deviation was £8.3M at index 52 versus £2.0M at index 80, the latter matching SARIMA's reported forecast standard error of £2.1M. Re-estimating from index 80 changed total MAPE from 1.57% to 1.63%. The MinT conclusion held, but the original figure was contaminated; all results above use burn-in 80.
+**Residual burn-in was initially wrong.** W was first estimated from index 52 (the seasonal period). Diagnostics showed the Kalman filter had not converged: residual standard deviation was $8.3M at index 52 versus $2.0M at index 80, the latter matching SARIMA's reported forecast standard error of $2.1M. Re-estimating from index 80 changed total MAPE from 1.57% to 1.63%. The MinT conclusion held, but the original figure was contaminated; all results above use burn-in 80.
 
 **Empirical quantiles are noisier.** The empirical 75th percentile is less biased than the normal-implied one but estimated from 50 residuals — thin for a tail quantile. This is a bias-variance tradeoff, not a clean improvement.
 
-**Persistent negative residual mean.** −£707K on a ~£47M series, roughly 1.5% systematic over-prediction in sample. Not diagnosed further.
+**Persistent negative residual mean.** −$707K on a ~$47M series, roughly 1.5% systematic over-prediction in sample. Not diagnosed further.
 
 **Prediction intervals not reconciled.** Order quantities use standard errors from the unreconciled fit. Propagating the full covariance through reconciliation is outside scope, so buffer widths are approximate even where point forecasts are reconciled.
 
